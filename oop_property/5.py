@@ -1,7 +1,7 @@
 class WindowDlg:
     
     def __init__(self, title, width, height):
-        self.__check = (width, height)
+        self.__check = {width, height}
         self.title = title
         self.width = width
         self.height = height
@@ -23,7 +23,6 @@ class WindowDlg:
     def height(self, height, max = (0, 10000)):
         if max[0] <= height <= max[1]:
             self.__height = height
-        self.__check_fl()
             
     @property
     def width(self):
@@ -33,7 +32,6 @@ class WindowDlg:
     def width(self, width, max = (0, 10000)):
         if max[0] <= width <= max[1]:
             self.__width = width
-        self.__check_fl()
     
     def __check_fl(self):
         if self.width not in self.__check or self.height not in self.__check:
