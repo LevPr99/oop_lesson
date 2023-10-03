@@ -1,10 +1,14 @@
+from random import Random
+
 class Cell:
     '''С помощью класса Cell предполагается создавать отдельные клетки'''
     
     def __init__(self) -> None:
-        self.around_mines
-        self.mine
-        self.fl_open
+        self.around_mines = 0
+        '''число мин вокруг клетки (начальное значение 0)'''
+        self.mine : False
+        self.fl_open = False
+        self.__M_count = 0
         
 class GamePole:
     '''С помощью класса GamePole должна быть возможность создавать
@@ -21,13 +25,17 @@ class GamePole:
         field = list()
         for i in range(self.N):
             for j in range(self.N):
-                field.append(self.mine_random())
+                rnd_m = self.cell_random()
+                if rnd_m is not None:
+                    field.append(rnd_m)
     
     def show(self):
         '''отображение поля в консоли в виде таблицы чисел открытых клеток'''
         pass
     
-    @classmethod
-    def mine_random(cls):
-        pass
-        return Cell()
+    def cell_random(self):
+        cl = Cell()
+        rnd = Random.randint(0,1)
+        cl.mine = rnd
+        self.__M_count += rnd
+        return 0 if self.__M_count >= self.M else cl
