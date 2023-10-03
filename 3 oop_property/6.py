@@ -29,10 +29,15 @@ class Stack:
     def pop(self):
         if self.top is not None:
             tmp = self.top
+        
         if tmp.next is not None:
             while tmp.next.next is not None:
                 tmp = tmp.next
-        tmp.next = None
+            tmp.next = None
+        else:
+            tmp = self.top
+            self.top = None
+            return tmp
         
     def get_data(self):
         res = list()
