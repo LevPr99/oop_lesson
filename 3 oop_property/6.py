@@ -1,4 +1,4 @@
-class Data:
+class StackObj:
     
     def __init__(self, data) -> None:
         self.next = None
@@ -27,14 +27,17 @@ class Stack:
         self.top = None
         
     def pop(self):
-        while self.tmp != None:
-            
-            ...
-    
+        tmp = self.top.next
+        while tmp is not None:
+            if tmp.next.next == None:
+                break
+            tmp = tmp.next
+        tmp.next = None
+        
     def get_data(self):
         tmp = self.top.next
-        res = [self.top.data]
-        while tmp != None:
+        res : list[str] = [self.top.data]
+        while tmp.next is not None:
             res.append(tmp.data)
             tmp = tmp.next
         return res
@@ -44,7 +47,7 @@ class Stack:
             self.top = obj
         else:
             tmp = self.top.next
-            while tmp != None:
+            while tmp.next is not None:
                 tmp = tmp.next
             else:
                 tmp.next = obj
