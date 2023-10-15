@@ -19,8 +19,21 @@ class Cell:
     
     value = FloatValue()
     
-    def __init__(self, value) -> None:
+    def __init__(self, value=0.0) -> None:
         self.value = value
         
 class TableSheet:
-    pass
+    
+    def __init__(self, N, M) -> None:
+        self.cells = list()
+        for i in range(N):
+            self.cells.append([])
+            for _ in range(M):
+                self.cells[i].append(Cell())
+        
+table = TableSheet(5, 3) #?
+c = 1.0
+for i in table.cells:
+    for j in i:
+        j.value = c
+        c += 1.0
