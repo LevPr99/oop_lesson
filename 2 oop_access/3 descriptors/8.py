@@ -4,31 +4,36 @@ class ValidateString:
         self.min_length = min_length
         self.max_length = max_length
     
-    def __set_name__(self, owner, instance):
-        self.validator = '__' + instance
-    
-    def __get__():
-        pass
-    
-    def __set__():
-        pass
-    
     def validate(self, string):
         return isinstance(string, str) and (self.min_length <= len(string) <= self.max_length)
 
 
 class StringValue:
     
-    def __init__(self, valid_string) -> None:
-        self.validator = valid_string
+    def __init__(self, validator) -> None:
+        self.validator = validator
+        
+    def __set_name__(self, owner, name):
+        self.name = '__' + name
+    
+    def __get__(self, instance, owner):
+        return getattr(instance, self.name)
+    
+    def __set__(self, instance, value):
+        if self.validator.validate(value):
+            setattr(instance, self.name, value)
 
 
 class RegisterForm:
     
+    login = StringValue(validator=ValidateString(3, 100))
+    password = StringValue(validator=ValidateString(3, 100))
+    email = StringValue(validator=ValidateString(3, 100))
+    
     def __init__(self, login, password, email) -> None:
-        self.login = StringValue()
-        self.password = StringValue()
-        self.email = StringValue()
+        self.login = login
+        self.password = password
+        self.email = email
     
     def get_fields(self):
         return [v for v in self.__dict__.values()]
@@ -50,8 +55,8 @@ StringValue.__doc__
 frm = RegisterForm("123", "2345", "sc_lib@list.ru")
 frm.get_fields() #?
 
-frm.login = "root"
-assert frm.login == "root", "дескриптор login вернул неверные данные"
+frm.login = "root" #?
+assert frm.login == "root", "дескриптор login вернул неверные данные" #?
 
 v = ValidateString(5, 10)
 assert v.validate("hello"), "метод validate вернул неверное значение"
