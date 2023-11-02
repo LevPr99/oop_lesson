@@ -1,3 +1,7 @@
 {
-    "wolf.disableHotModeWarning": true
+    "wolf.disableHotModeWarning": true,
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "main"
+    ],
+    "python.analysis.autoImportCompletions": false
 }
