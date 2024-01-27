@@ -1,24 +1,20 @@
 class Handler:
     
-    def __init__(self, func):
-        self.func = func
+    def __init__(self, methods):
+        self.methods = methods
     
     def get(self, func, request, *args, **kwargs):
-        if 'method' not in request or request['method'] == {self.get.__name__.upper()}:
-            return f'{self.get.__name__.upper()}: {func(args)}'
-        return None
+        return f'{self.get.__name__.upper()}: {func(args)}'
     
     def post(self, func, request, *args, **kwargs):
-        if 'method' not in request or request['method'] == {self.get.__name__.upper()}:
-            return f'{self.get.__name__.upper()}: {func(args)}'
-        return None
+        return f'{self.get.__name__.upper()}: {func(args)}'
         
-    def __call__(self, *args):
-        def wrapper(func):
-            return func(args[0])
-        return wrapper(self.func)
+    def __call__(self, func):
+        def wrapper(*args):
+            return func()
+        return wrapper
         
-  
+
 @Handler
 def contact(request):
     return "Сергей Балакирев"
